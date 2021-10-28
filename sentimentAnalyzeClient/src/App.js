@@ -55,7 +55,7 @@ class App extends React.Component {
           case "negative": color = "red";break;
           default: color = "black";
         }
-        output = <div style={{color:color,fontSize:20}}>{output}</div>
+        output = output ? <div style={{color:color,fontSize:20}}>{output}</div> : '-'
         this.setState({sentimentOutput:output});
       })});
   }

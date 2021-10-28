@@ -61,7 +61,6 @@ app.get("/url/emotion", (req,res) => {
     naturalLanguageUnderstanding.analyze(analyzeParams)
     .then(analysisResults => {
         //Retrieve the emotion and return it as a formatted string
-        console.log(analysisResults.result.keywords[0].emotion)
         return res.send(analysisResults.result.keywords[0].emotion,null,2);
     })
     .catch(err => {
@@ -89,7 +88,6 @@ app.get("/url/sentiment", (req,res) => {
     naturalLanguageUnderstanding.analyze(analyzeParams)
     .then(analysisResults => {
         //Retrieve the sentiment and return it as a formatted string
-        console.log(analysisResults.result.keywords[0].sentiment);
         return res.send(analysisResults.result.keywords[0].sentiment,null,2);
     })
     .catch(err => {
@@ -146,7 +144,6 @@ app.get("/text/sentiment", (req,res) => {
     naturalLanguageUnderstanding.analyze(analyzeParams)
     .then(analysisResults => {
         //Retrieve the sentiment and return it as a formatted string
-        console.log(analysisResults)
         const result = analysisResults.result.keywords
         return res.send(result.length > 0 ? result[0].sentiment : [],null,2);
     })
