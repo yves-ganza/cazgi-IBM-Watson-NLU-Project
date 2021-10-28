@@ -3,6 +3,7 @@ const app = new express();
 const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1');
 const { IamAuthenticator } = require('ibm-watson/auth');
 require('dotenv').config()
+
 /*This tells the server to use the client 
 folder for all static resources*/
 app.use(express.static('client'));
@@ -60,9 +61,11 @@ app.get("/url/emotion", (req,res) => {
     naturalLanguageUnderstanding.analyze(analyzeParams)
     .then(analysisResults => {
         //Retrieve the emotion and return it as a formatted string
+        console.log(analysisResults.result.keywords[0].emotion)
         return res.send(analysisResults.result.keywords[0].emotion,null,2);
     })
     .catch(err => {
+        console.log(err);
         return res.send("Could not do desired operation "+err);
     });
 });
@@ -86,10 +89,11 @@ app.get("/url/sentiment", (req,res) => {
     naturalLanguageUnderstanding.analyze(analyzeParams)
     .then(analysisResults => {
         //Retrieve the sentiment and return it as a formatted string
-
+        console.log(analysisResults.result.keywords[0].sentiment);
         return res.send(analysisResults.result.keywords[0].sentiment,null,2);
     })
     .catch(err => {
+        console.log(err);
         return res.send("Could not do desired operation "+err);
     });
 });
@@ -114,10 +118,11 @@ app.get("/text/emotion", (req,res) => {
     naturalLanguageUnderstanding.analyze(analyzeParams)
     .then(analysisResults => {
         //Retrieve the emotion and return it as a formatted string
-        
-        return res.send(analysisResults.result.keywords[0].emotion,null,2);
+        const result = analysisResults.result.keywords
+        return res.send(result.length > 0 ? result[0].emotion : [],null,2);
     })
     .catch(err => {
+        console.log(err);
         return res.send("Could not do desired operation "+err);
     });
 });
@@ -141,10 +146,12 @@ app.get("/text/sentiment", (req,res) => {
     naturalLanguageUnderstanding.analyze(analyzeParams)
     .then(analysisResults => {
         //Retrieve the sentiment and return it as a formatted string
-
-        return res.send(analysisResults.result.keywords[0].sentiment,null,2);
+        console.log(analysisResults)
+        const result = analysisResults.result.keywords
+        return res.send(result.length > 0 ? result[0].sentiment : [],null,2);
     })
     .catch(err => {
+        console.log(err)
         return res.send("Could not do desired operation "+err);
     });
 });

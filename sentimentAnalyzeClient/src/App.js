@@ -43,12 +43,7 @@ class App extends React.Component {
     let mode = this.state.mode
     url = url+"/" + mode + "/sentiment?"+ mode + "="+document.getElementById("textinput").value;
 
-    fetch(url, {
-      headers : { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    }).then((response)=>{
+    fetch(url).then((response)=>{
       console.log(response)
         response.json().then((data)=>{
         this.setState({sentimentOutput:data.label});
@@ -72,13 +67,7 @@ class App extends React.Component {
     let mode = this.state.mode
     url = url+"/" + mode + "/emotion?"+ mode + "="+document.getElementById("textinput").value;
 
-    fetch(url, {
-      headers : { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       }
-
-    }).then((response)=>response.json())
+    fetch(url).then((response)=>response.json())
     .then((data)=>{
       console.log(data)
       this.setState({sentimentOutput:<EmotionTable emotions={data}/>});
