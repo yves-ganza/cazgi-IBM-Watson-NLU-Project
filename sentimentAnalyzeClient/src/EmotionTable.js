@@ -26,7 +26,6 @@ class EmotionTable extends React.Component {
             </table> : 
             <p>{'-'}</p>
           }
-
           </div>
           );
         }
